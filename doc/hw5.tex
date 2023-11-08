@@ -247,10 +247,20 @@ Use this latex file as a template to develop your homework. Submit your homework
 		      \]
 	      \end{soln}
 
+	      \pagebreak
 	\item \textbf{(8 Points)}
 	      Consider the K-means (Lloyd's) clustering algorithm we studied in class. We
 	      terminate the algorithm when there are no changes to the objective.
 	      Show that the algorithm terminates in a finite number of steps.
+
+	      \begin{soln}
+		      Since the algorithm compute the means of the clusters and assign the data points to the nearest cluster, suppose we have a finite number $n$ of data points and a fixed $k$, the number of possible means combination is finite $k^n$.
+
+		      If the algorithm does not terminate in a finite number of steps, it will repeat the same means combination, and the lost function must be smaller than current step, which is not possible for teh same means combination.
+
+		      Therefore, the algorithm must terminate in a finite number of steps.
+
+	      \end{soln}
 
 \end{enumerate}
 
