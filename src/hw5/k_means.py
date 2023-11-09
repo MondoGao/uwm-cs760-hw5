@@ -1,6 +1,7 @@
 import numpy as np
 from dataclasses import dataclass
 import matplotlib.pyplot as plt
+from sklearn.metrics.cluster import completeness_score
 
 
 @dataclass
@@ -45,4 +46,4 @@ class KMeans:
         return loss
 
     def accuracy(self, y_real):
-      pass
+        return completeness_score(y_real, self.labels)

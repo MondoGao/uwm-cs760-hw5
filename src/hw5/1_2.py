@@ -6,19 +6,31 @@ from hw5.k_means import KMeans
 
 def main():
     sigmas = [0.5, 1, 2, 4, 8]
-    sigmas = [1]
 
+    # data fig
     fig, axs = plt.subplots(len(sigmas))
+    # cluster result fig
     fig2, axs2 = plt.subplots(len(sigmas))
+    # loss and accuracy fig
+    fig3, axs3 = plt.subplots(2, 2)
     if len(sigmas) == 1:
         axs = [axs]
         axs2 = [axs2]
 
-    loss = np.empty((len(sigmas)))
-    accuracy = np.empty((len(sigmas)))
+    losses = np.empty((len(sigmas)))
+    accuracies = np.empty((len(sigmas)))
     for idx, sigma in enumerate(sigmas):
         data = sample(sigma, axs[idx])
-        train_kmeans(data[:, :2], data[:, 2], axs2[idx])
+        loss, accuracy = train_kmeans(data[:, :2], data[:, 2], axs2[idx])
+        losses[idx] = loss
+        accuracies[idx] = accuracy
+
+    kmean_loss = axs3[0, 0]
+    kmean_accuracy = axs3[0, 1]
+    kmean_loss.set_title("KMeans Loss")
+    kmean_loss.plot(sigmas, losses)
+    kmean_accuracy.set_title("KMeans Accuracy")
+    kmean_accuracy.plot(sigmas, accuracies)
 
     plt.show()
 
@@ -28,7 +40,8 @@ def train_kmeans(X, y_real, plt=plt):
     km.train(X)
     km.plot(plt)
     loss = km.loss()
-    
+    accuracy = km.accuracy(y_real)
+    return loss, accuracy
 
 
 def sample(sigma: float, fig=plt):
