@@ -9,11 +9,11 @@ def main():
     sigmas = [0.5, 1, 2, 4, 8]
 
     # data fig
-    fig, axs = plt.subplots(len(sigmas))
+    fig, axs = plt.subplots(len(sigmas), figsize=(8, 8))
     # cluster result fig
-    fig2, axs2 = plt.subplots(2, len(sigmas))
+    fig2, axs2 = plt.subplots(2, len(sigmas), figsize=(8, 4))
     # loss and accuracy fig
-    fig3, axs3 = plt.subplots(2, 2)
+    fig3, axs3 = plt.subplots(2, 2, figsize=(8, 8))
 
     kmeans_losses = np.empty((len(sigmas)))
     kmeans_accuracies = np.empty((len(sigmas)))
@@ -21,11 +21,15 @@ def main():
     gmm_accuracies = np.empty((len(sigmas)))
     for idx, sigma in enumerate(sigmas):
         data = sample(sigma, axs[idx])
-        loss, accuracy = train_kmeans(data[:, :2], data[:, 2], axs2[0, idx])
+        km_plot = axs2[0, idx]
+        km_plot.set_title(f"KMeans, sigma = {sigma}")
+        loss, accuracy = train_kmeans(data[:, :2], data[:, 2], km_plot)
         kmeans_losses[idx] = loss
         kmeans_accuracies[idx] = accuracy
 
-        loss2, accuracy2 = train_gmm(data[:, :2], data[:, 2], axs2[1, idx])
+        gmm_plot = axs2[1, idx]
+        gmm_plot.set_title(f"GMM, sigma = {sigma}")
+        loss2, accuracy2 = train_gmm(data[:, :2], data[:, 2], gmm_plot)
         gmm_losses[idx] = loss2
         gmm_accuracies[idx] = accuracy2
 
@@ -39,10 +43,13 @@ def main():
     gmm_loss_fig = axs3[1, 0]
     gmm_accuracy_fig = axs3[1, 1]
     gmm_loss_fig.set_title("GMM Loss")
-    gmm_loss_fig.plot(sigmas, kmeans_losses)
+    gmm_loss_fig.plot(sigmas, gmm_losses)
     gmm_accuracy_fig.set_title("GMM Accuracy")
-    gmm_accuracy_fig.plot(sigmas, kmeans_accuracies)
+    gmm_accuracy_fig.plot(sigmas, gmm_accuracies)
 
+    fig.tight_layout()
+    fig2.tight_layout()
+    fig3.tight_layout()
     plt.show()
 
 
