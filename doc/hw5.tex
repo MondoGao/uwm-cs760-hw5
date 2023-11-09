@@ -522,6 +522,11 @@ Here we will compare the above three methods on two data sets.
 		            this? \\
 		            \textbf{Hint: } Which subspace is Buggy PCA trying to project the points
 		            onto?
+
+		            \begin{soln}
+			            Because data is not nomalized, it is trying to project the data onto the subspace which may not be the most informative subspace which captures the most variance.
+		            \end{soln}
+
 		      \item The error criterion we are using is the average squared error
 		            between the original points and the reconstructed points.
 		            In both examples DRO and demeaned PCA achieves the lowest error among all
@@ -532,9 +537,26 @@ Here we will compare the above three methods on two data sets.
 	\item Point allocation:
 	      \begin{itemize}
 		      \item Implementation of the three PCA methods: \textbf{(6 Points)}
+
+		            \begin{soln}
+			            See
+			            \href[pdfnewwindow=true]{https://github.com/MondoGao/uwm-cs760-hw5/blob/main/src/hw5/pca.py}{https://github.com/MondoGao/uwm-cs760-hw5/blob/main/src/hw5/pca.py}
+		            \end{soln}
+
 		      \item Implementation of DRO: \textbf{(6 points)}
 		      \item Plots showing original points and reconstructed points for 2D dataset for each one of the 4 methods: \textbf{(10 points)}
+		            \begin{figure}[H]
+			            \centering
+			            \includegraphics[width=1\textwidth]{img/2_3_1.png}
+			            \caption*{Clustering Result}
+		            \end{figure}
+
 		      \item Implementing reconstructions and reporting results for each one of the 4 methods for the 2 datasets: \textbf{(5 points)}
+		            \begin{figure}[H]
+			            \centering
+			            \includegraphics[width=0.7\textwidth]{img/2_3_2.png}
+			            \caption*{Clustering Result}
+		            \end{figure}
 		      \item Choice of $d$ for $1000D$ dataset and appropriate justification:
 		            \textbf{(3 Points)}
 		      \item Questions \textbf{(4 Points)}

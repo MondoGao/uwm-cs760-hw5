@@ -30,15 +30,18 @@ class PCA:
         eig_vecs = eig_vecs[:, idx]
         self.components = eig_vecs[: self.d]
 
-        X_pca = np.dot(X, self.components.T)
+        X_pca = np.dot(X, self.components.T) + self.X_mean
+        if self.mode == "buggy":
+            X_pca -= self.X_mean
         self.X_pca = X_pca
 
         return X_pca, eig_vals, eig_vecs
 
     def plot(self, plt=plt):
         plt.set_title(f"PCA ({self.mode})")
+        pca = self.X_pca
         plt.scatter(self.X[:, 0], self.X[:, 1], color="blue", marker="o")
-        pca = self.X_pca + self.X_mean
-        if self.mode == "buggy":
-            pca = pca - self.X_mean
         plt.scatter(pca[:, 0], pca[:, 1], color="red", marker="x")
+
+    def error(self):
+        return np.sum(np.square(self.X - self.X_pca))

@@ -21,6 +21,7 @@ def do_pca(X, mode: Literal["buggy", "demeaned", "normalized"] = "buggy", plt=pl
     pca = PCA(mode=mode)
     pca.train(X)
     pca.plot(plt)
+    print(f"{mode} Error: {pca.error()}")
 
 
 if __name__ == "__main__":
